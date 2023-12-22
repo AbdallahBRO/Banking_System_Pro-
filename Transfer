@@ -1,0 +1,28 @@
+fun transfer(
+    userIdSender: String,
+    pass: String,
+    amount: Double,
+    userIdReciver: String
+) {
+    var privateId = userIdSender
+    privateId += pass
+    var account = lista[privateId] ?: null
+
+    if (account != null) {
+        var reciverBalance = pBalance[userIdSender.toLong()] ?: -2000.00
+        if (reciverBalance != -2000.00) {
+            account.reBalance(reciverBalance, "re")
+            var sBalance = account.balance
+            if (sBalance >= amount) {
+                account.reBalance(amount, "W")
+                var newBalanceSender = account.balance
+                pBalance[userIdSender.toLong()] = newBalanceSender
+                var newBalanceReciver = pBalance[userIdReciver.toLong()] ?: null
+                if (newBalanceReciver != null) {
+                    newBalanceReciver += amount
+                    pBalance[userIdReciver.toLong()] = newBalanceReciver
+                }
+            }
+        }
+    }
+}
