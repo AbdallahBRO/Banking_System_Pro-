@@ -1,0 +1,18 @@
+class Account(var name: String) {
+    var balance = 0.0
+        private set
+
+    fun reBalance(amount: Double, op: String) {
+        when (op.uppercase()) {
+            "W" -> {
+                balance -= amount
+            }
+            "D" -> {
+                balance += amount
+            }
+            "re"->{
+            balance==amount
+            }
+        }
+    }
+}
