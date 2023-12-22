@@ -1,0 +1,11 @@
+fun deleteAccount(userId: String, pass: String) {
+    var privateId = userId
+    privateId += pass
+    val account = lista[privateId] ?: null
+    if (account != null) {
+        lista.remove(privateId)
+        ids.remove(userId.toLong())
+        pBalance.remove(userId.toLong())
+    }
+    println("deleteAccount Complete")
+}
