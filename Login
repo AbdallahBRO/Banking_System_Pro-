@@ -1,0 +1,122 @@
+fun login(): String {
+    println("Enter your Id : ")
+    var userId: String? = readln()
+    println("Enter your Password")
+    var pass: String? = readln()
+    if (userId != null && pass != null) {
+        var privateId = userId
+        privateId += pass
+        val account = lista[privateId] ?: null
+        whatDo@ while (true) {
+            if (account != null) {
+                println(
+                    "what you do ? \n 1_Deposit\n2_Withdraw\n3_transfer\n4_DeleteAccount\n 5_Reset Password"
+                )
+                var whatDoNext = readln()
+                var amount = 0.0
+                try {
+                    println("enter amount:")
+                    amount = readln().toDouble()
+                    account.reBalance(amount, "D")
+                } catch (E: Exception) {
+                    println("you must type only Nums!!")
+                    continue@whatDo
+                }
+                when (whatDoNext) {
+                    "1" -> {
+                        account.reBalance(amount, "D")
+                    }
+                    "2" -> {
+                        if (account.balance >= amount) {
+                            account.reBalance(amount, "W")
+                        } else {
+                            println(
+                                "you don,t have this amount \n your Balance amount : ${account.balance}"
+                            )
+                            continue@whatDo
+                        }
+                    }
+                    "3" -> {
+                        var num = 0
+                        println("enter Id for reciever:")
+                        var recieverId: String? = readln()
+                        if (account.balance >= amount) {
+                            for (i in 0..ids.size) {
+                                if (recieverId == ids[i].toString()) {
+
+                                    transfer(userId, pass, amount, recieverId)
+                                }
+                                num++
+                                if (num == ids.size) {
+                                    println("Id for reciever Not found")
+                                    break
+                                }
+                            }
+                        }
+                    }
+                    "4" -> {
+                        deleteAccount(userId, pass)
+                    }
+                    "5" -> {
+                        pass@ while (true) {
+                            try {
+                                println("type new Password")
+                                var newPassword = readln().toLong()
+                                newPassword.toString()
+                                var newPrivateId = userId
+                                newPrivateId += pass
+                                lista[newPrivateId] = account
+                                lista.remove(privateId)
+                            } catch (E: Exception) {
+                                println("you can type only Nums ")
+                                continue@pass
+                            }
+                        }
+                    }
+                    else -> {
+                        return login()
+                    }
+                }
+            } else {
+                println("You error on Id or Pasaword")
+                trying@ while (true) {
+                    println("what do you want ?\n1_try again \n2_End")
+                    var next = readln()
+
+                    when (next) {
+                        "1" -> {
+                            return login()
+                        }
+                        "2" -> {
+                            return ""
+                        }
+                        else -> {
+                            println("you must select 1/2")
+                            continue@trying
+                        }
+                    }
+                }
+            }
+
+            end@ while (true) {
+                println("what do you want now ? \n1_continue\n2_End")
+                var doNext = readln()
+                when (doNext) {
+                    "1" -> {
+                        return login()
+                    }
+                    "2" -> {
+                        return ""
+                    }
+                    else -> {
+                        println("you must select 1/2")
+                        continue@end
+                    }
+                }
+            }
+        }
+    } else {
+        println("you must type your Id and Password")
+        return login()
+    }
+}
