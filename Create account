@@ -1,0 +1,14 @@
+fun cAccount() {
+    println("please type Your Name : ")
+    var name: String = readln()
+    var rNum = randomNum()
+    var pass = "0000"
+    var privateId = rNum.toString()
+    privateId += pass
+    val account = Account(name)
+    lista[privateId] = account
+    println(
+        "You have created a new account now\nYour account number:$rNum\nThe temporary password is:(0000)\nPlease reset the password as soon as possible"
+    )
+   
+}
