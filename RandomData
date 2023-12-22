@@ -1,0 +1,10 @@
+fun randomNum(): Long {
+    var ran = (1000121322..9999999999).random()
+    for (i in 0..ids.size) {
+        var id = ids[i] ?: 0
+        if (id == ran) {
+            return randomNum()
+        }
+    }
+    return ran
+}
