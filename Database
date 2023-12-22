@@ -1,0 +1,6 @@
+//Accounts
+val lista = mutableMapOf<String,Account>()
+//ids for users
+val ids = mutableListOf<Long>()
+//public Balances for Users
+var pBalance = mutableMapOf<Long,Double>()
