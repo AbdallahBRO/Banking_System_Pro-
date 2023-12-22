@@ -1,0 +1,34 @@
+fun atm(userIdSender: String, pass: String, op: String, amount: Double) {
+    var privateId = userIdSender
+    privateId += pass
+    val account = lista[privateId] ?: null
+
+    if (account != null) {
+        val balance = account.balance
+        when (op.uppercase()) {
+            "W" -> {
+                if (balance >= amount) {
+                    account.reBalance(amount, "W")
+                    val userId = userIdSender.toLong()
+                    pBalance[userId] = account.balance
+                    println(
+                        "You have a New Withdraw \n amount: $amount\n your new balance : ${account.balance}"
+                    )
+                }
+            }
+            "D" -> {
+                account.reBalance(amount, "D")
+                val userId = userIdSender.toLong()
+                pBalance[userId] = account.balance
+                println(
+                    "You have a New Deposit \n amount: $amount\n your new balance : ${account.balance}"
+                )
+            }
+            else -> {
+                println("you must select W/D")
+            }
+        }
+    } else {
+        println("You have Error on your Id or Password")
+    }
+}
