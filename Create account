@@ -7,6 +7,8 @@ fun cAccount() {
     privateId += pass
     val account = Account(name)
     lista[privateId] = account
+    ids.add(rNum)
+    pBalance[rNum.toLong()]=0.0
     println(
         "You have created a new account now\nYour account number:$rNum\nThe temporary password is:(0000)\nPlease reset the password as soon as possible"
     )
