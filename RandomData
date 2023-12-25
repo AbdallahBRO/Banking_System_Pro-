@@ -1,10 +1,13 @@
 fun randomNum(): Long {
     var ran = (1000121322..9999999999).random()
-    for (i in 0..ids.size) {
+    if (ids.size>=1){
+    for (i in 0..ids.size-1) {
         var id = ids[i] ?: 0
         if (id == ran) {
             return randomNum()
         }
+    }
+    return ran
     }
     return ran
 }
