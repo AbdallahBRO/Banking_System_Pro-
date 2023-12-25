@@ -5,13 +5,15 @@ class Account(var name: String) {
     fun reBalance(amount: Double, op: String) {
         when (op.uppercase()) {
             "W" -> {
-                balance -= amount
+                this.balance -= amount
+                println("Withdraw Done")
             }
             "D" -> {
-                balance += amount
+                this.balance += amount
+                println("add balance Done")
             }
-            "re"->{
-            balance==amount
+            "RE"->{
+            this.balance=amount
             }
         }
     }
