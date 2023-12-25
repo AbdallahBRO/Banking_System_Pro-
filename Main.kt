@@ -5,10 +5,10 @@ fun main() {
         var whatDo = readln()
         when (whatDo) {
             "1" -> {
-                login()
+                break
             }
             "2" -> {
-                break
+                login()
             }
             else -> {
                 println("you must select 1/2")
