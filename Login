@@ -8,26 +8,34 @@ fun login(): String {
         privateId += pass
         val account = lista[privateId] ?: null
         whatDo@ while (true) {
+        
             if (account != null) {
                 println(
                     "what you do ? \n 1_Deposit\n2_Withdraw\n3_transfer\n4_DeleteAccount\n 5_Reset Password"
                 )
+                var fBalance = pBalance[userId.toLong()]?:-2000.0
+                account.reBalance(fBalance,"re")
                 var whatDoNext = readln()
                 var amount = 0.0
-                try {
-                    println("enter amount:")
-                    amount = readln().toDouble()
-                    account.reBalance(amount, "D")
-                } catch (E: Exception) {
-                    println("you must type only Nums!!")
-                    continue@whatDo
+                if (whatDoNext != "5" && whatDoNext.toLong() in 1..3) {
+                    try {
+                        println("enter amount:")
+                        amount = readln().toDouble()
+                        //account.reBalance(amount, "D")
+                    } catch (E: Exception) {
+                        println("you must type only Nums!!")
+                        continue@whatDo
+                    }
                 }
                 when (whatDoNext) {
                     "1" -> {
-                        account.reBalance(amount, "D")
+                        atm(userId,pass,"D",amount)
+
+                        //account.reBalance(amount, "D")
                     }
                     "2" -> {
                         if (account.balance >= amount) {
+                            atm(userId,pass,"W",amount)
                             account.reBalance(amount, "W")
                         } else {
                             println(
@@ -41,10 +49,13 @@ fun login(): String {
                         println("enter Id for reciever:")
                         var recieverId: String? = readln()
                         if (account.balance >= amount) {
-                            for (i in 0..ids.size) {
+                            for (i in 0..ids.size-1) {
                                 if (recieverId == ids[i].toString()) {
 
                                     transfer(userId, pass, amount, recieverId)
+                                    
+                                    println("transfer sussuful ")
+                                    num--
                                 }
                                 num++
                                 if (num == ids.size) {
@@ -53,9 +64,13 @@ fun login(): String {
                                 }
                             }
                         }
+                        else{
+                        println("sorry you don,t have this amount \n your account balance : ${account.balance}")
+                        }
                     }
                     "4" -> {
                         deleteAccount(userId, pass)
+                        return ""
                     }
                     "5" -> {
                         pass@ while (true) {
@@ -64,9 +79,10 @@ fun login(): String {
                                 var newPassword = readln().toLong()
                                 newPassword.toString()
                                 var newPrivateId = userId
-                                newPrivateId += pass
+                                newPrivateId += newPassword
                                 lista[newPrivateId] = account
                                 lista.remove(privateId)
+                                break
                             } catch (E: Exception) {
                                 println("you can type only Nums ")
                                 continue@pass
@@ -103,7 +119,7 @@ fun login(): String {
                 var doNext = readln()
                 when (doNext) {
                     "1" -> {
-                        return login()
+                        continue@whatDo
                     }
                     "2" -> {
                         return ""
